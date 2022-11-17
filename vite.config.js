@@ -14,8 +14,8 @@ import vue from '@vitejs/plugin-vue'
 export default defineConfig({
   plugins: [vue()],
   server: {
-    port: "5173",
-		host: '192.168.19.163',
+    port: "1314",
+		host: '127.0.0.1',
     // 是否开启 https
     https: false,
   },

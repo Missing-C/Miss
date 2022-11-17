@@ -1,0 +1,24 @@
+{
+  "name": "blue-mountain",
+  "version": "0.0.0",
+  "scripts": {
+    "blue": "vite",
+    "build": "vite build",
+    "preview": "vite preview --port 4173"
+  },
+  "dependencies": {
+    "install": "^0.13.0",
+    "npm": "^9.1.1",
+    "stylus": "^0.59.0",
+    "stylus-loader": "^7.1.0",
+    "vue": "^3.2.38"
+  },
+  "devDependencies": {
+    "@vicons/ionicons5": "^0.12.0",
+    "@vicons/utils": "^0.1.4",
+    "@vitejs/plugin-vue": "^3.0.3",
+    "@volar-plugins/vetur": "latest",
+    "naive-ui": "^2.33.5",
+    "vite": "^3.0.9"
+  }
+}

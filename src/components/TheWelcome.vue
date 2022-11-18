@@ -106,7 +106,6 @@ export default defineComponent({
 </script>
 
 <template>
-  
   <WelcomeItem>
     <template #icon>
       <SupportIcon />

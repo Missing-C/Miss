@@ -34,6 +34,7 @@ export default defineComponent({
     };
   },
   methods: {
+    // 上传图片
     handleChange(file) {
       const that = this;
       /* file转url --start */
@@ -43,12 +44,13 @@ export default defineComponent({
         // url赋值
         that.uploadFile = ev.currentTarget.result;
         /* file转url --start */
-        setTimeout(()=>{
+        setTimeout(() => {
           that.canvasInit()
-        },3000)
+        }, 3000)
       };
     },
-    canvasInit(){
+    // 初始化canvas画布
+    canvasInit() {
       const that = this;
       var img = new Image();
       img.src = this.uploadFile;
@@ -66,6 +68,7 @@ export default defineComponent({
         imgCanvas.addEventListener("click", that.pick);
       };
     },
+    // 获取位置像素信息
     getRgba(x, y) {
       var pixel = this.ctx.getImageData(x, y, 1, 1);
       var data = pixel.data;
@@ -73,6 +76,7 @@ export default defineComponent({
       var rgba = "rgba(" + data[0] + "," + data[1] + "," + data[2] + "," + data[3] / 255 + ")";
       return rgba;
     },
+    // 获取鼠标点击位置
     pick(event) {
       // 获取鼠标坐标
       var x = event.layerX;
@@ -102,9 +106,10 @@ export default defineComponent({
 </script>
 
 <template>
+  
   <WelcomeItem>
     <template #icon>
-      <DocumentationIcon />
+      <SupportIcon />
     </template>
     <template #heading @click="showColorPanel">取色器</template>
     <template #title>
@@ -114,7 +119,11 @@ export default defineComponent({
       <n-layout-sider content-style="padding: 24px;">
         <n-upload @change="handleChange">
           <n-button ghost color="#8a2be2">
-            <template #icon><n-icon><cash-icon /></n-icon></template>
+            <template #icon>
+              <n-icon>
+                <cash-icon />
+              </n-icon>
+            </template>
             上传
           </n-button>
         </n-upload>
@@ -123,8 +132,8 @@ export default defineComponent({
         <img id="localImg" v-if="uploadFile" :src="uploadFile" alt="" />
         <canvas id="imgCanvas"></canvas>
         <div class="infoBar">
-          <span class="color" :style="'background:'+color"></span>
-          <span class="text">{{text}}</span>
+          <span class="color" :style="'background:' + color"></span>
+          <span class="text">{{ text }}</span>
         </div>
       </n-layout-content>
     </n-layout>
@@ -138,6 +147,16 @@ export default defineComponent({
     <template #title>
       通过document.addEventListener 'paste' 实现监听复制剪切事件。
     </template>
+
+  </WelcomeItem>
+
+  <WelcomeItem>
+    <template #icon>
+      <CommunityIcon />
+    </template>
+    <template #heading>评论区</template>
+    <template #title>自定义组件参考微信的回复评论dom结构</template>
+
     
   </WelcomeItem>
 
@@ -145,64 +164,16 @@ export default defineComponent({
     <template #icon>
       <EcosystemIcon />
     </template>
-    <template #heading>Ecosystem</template>
-
-    Get official tools and libraries for your project:
-    <a href="https://pinia.vuejs.org/" target="_blank" rel="noopener">Pinia</a>,
-    <a href="https://router.vuejs.org/" target="_blank" rel="noopener"
-      >Vue Router</a
-    >,
-    <a href="https://test-utils.vuejs.org/" target="_blank" rel="noopener"
-      >Vue Test Utils</a
-    >, and
-    <a href="https://github.com/vuejs/devtools" target="_blank" rel="noopener"
-      >Vue Dev Tools</a
-    >. If you need more resources, we suggest paying
-    <a
-      href="https://github.com/vuejs/awesome-vue"
-      target="_blank"
-      rel="noopener"
-      >Awesome Vue</a
-    >
-    a visit.
+    <template #heading>轮播图</template>
+    <template #title>通过添加创建的方式生成轮播图</template>
   </WelcomeItem>
 
   <WelcomeItem>
     <template #icon>
-      <CommunityIcon />
+      <DocumentationIcon />
     </template>
-    <template #heading>Community</template>
-
-    Got stuck? Ask your question on
-    <a href="https://chat.vuejs.org" target="_blank" rel="noopener">Vue Land</a
-    >, our official Discord server, or
-    <a
-      href="https://stackoverflow.com/questions/tagged/vue.js"
-      target="_blank"
-      rel="noopener"
-      >StackOverflow</a
-    >. You should also subscribe to
-    <a href="https://news.vuejs.org" target="_blank" rel="noopener"
-      >our mailing list</a
-    >
-    and follow the official
-    <a href="https://twitter.com/vuejs" target="_blank" rel="noopener"
-      >@vuejs</a
-    >
-    twitter account for latest news in the Vue world.
-  </WelcomeItem>
-
-  <WelcomeItem>
-    <template #icon>
-      <SupportIcon />
-    </template>
-    <template #heading>Support Vue</template>
-
-    As an independent project, Vue relies on community backing for its
-    sustainability. You can help us by
-    <a href="https://vuejs.org/sponsor/" target="_blank" rel="noopener"
-      >becoming a sponsor</a
-    >.
+    <template #heading>全文检索功能</template>
+    <template #title>实现对input,textarea以及文本的全文检索功能</template>
   </WelcomeItem>
 </template>
 <style lang="stylus" scoped>

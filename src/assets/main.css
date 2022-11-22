@@ -1,7 +1,7 @@
 @import "./base.css";
 
 #app {
-  max-width: 1600px;
+  max-width: 1800px;
   margin: 0 auto;
   padding: 2rem;
 
@@ -32,4 +32,12 @@ a,
     grid-template-columns: 1fr 1fr;
     padding: 0 2rem;
   }
+}
+.tox.tox-silver-sink.tox-tinymce-aux{
+  position: absolute !important;
+}
+.color-dialog{
+  width: 90% !important;
+  margin: 5vh auto !important;
+  height: 90vh;
 }

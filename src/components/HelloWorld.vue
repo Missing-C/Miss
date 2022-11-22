@@ -1,9 +1,9 @@
 <!--
  * @Author: 蓝山
  * @Date: 2022-11-14 14:09:50
- * @FilePath: \blue-mountain\src\components\HelloWorld.vue
+ * @FilePath: \blue\src\components\HelloWorld.vue
  * @LastEditors: 蓝山
- * @LastEditTime: 2022-11-14 14:40:18
+ * @LastEditTime: 2022-11-22 14:24:38
 -->
 <script setup>
 defineProps({

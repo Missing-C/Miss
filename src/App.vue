@@ -1,49 +1,35 @@
 <!--
  * @Author: 蓝山
- * @Date: 2022-11-14 14:09:50
- * @FilePath: \blue-mountain\src\App.vue
+ * @Date: 2022-11-22 11:08:41
+ * @FilePath: \trunk\src\App.vue
  * @LastEditors: 蓝山
- * @LastEditTime: 2022-11-15 16:56:32
+ * @LastEditTime: 2022-11-22 17:11:41
 -->
-<script>
-import HelloWorld from "./components/HelloWorld.vue";
-import TheWelcome from "./components/TheWelcome.vue";
-export default {
-  data () {
-    return{
-      timer: null
-    }
-  },
-  components:{HelloWorld,TheWelcome},
-  methods: {
-    imgRotate() {
-    },
-    imgStop() {
-    }
-  },
-};
+<script setup>
+import { RouterLink, RouterView } from 'vue-router'
+import HelloWorld from './components/HelloWorld.vue'
 </script>
 
 <template>
   <header>
-    <img
+  <img
       alt="Vue logo"
       class="logo"
       src="./assets/user.jpg"
       width="125"
       height="125"
-      @mouseenter="imgRotate()"
-      @mouseleave="imgStop()"
     />
-
     <div class="wrapper">
-      <HelloWorld msg="Blue mountain - Tools!" />
+      <HelloWorld msg="Blue Mountain" />
+
+      <nav>
+        <RouterLink to="/home">Home</RouterLink>
+        <RouterLink to="/about">About</RouterLink>
+      </nav>
     </div>
   </header>
 
-  <main>
-    <TheWelcome />
-  </main>
+  <RouterView />
 </template>
 
 <style lang="stylus" scoped>
@@ -51,7 +37,7 @@ header {
   line-height: 1.5;
 }
 
-/deep/.wrapper{
+:deep(.wrapper){
   width:calc(100% - 125px)
 }
 
@@ -67,6 +53,31 @@ header {
   transition: all 59s cubic-bezier(.34,0,.84,1) 1s;
 }
 
+nav {
+  width: 100%;
+  font-size: 12px;
+  text-align: center;
+  margin-top: 2rem;
+}
+
+nav a.router-link-exact-active {
+  color: var(--color-text);
+}
+
+nav a.router-link-exact-active:hover {
+  background-color: transparent;
+}
+
+nav a {
+  display: inline-block;
+  padding: 0 1rem;
+  border-left: 1px solid var(--color-border);
+}
+
+nav a:first-of-type {
+  border: 0;
+}
+
 @media (min-width: 1024px) {
   header {
     display: flex;
@@ -78,10 +89,18 @@ header {
     margin: 0 2rem 0 0;
   }
 
-  header .wrapper {
+  .wrapper {
     display: flex;
     place-items: flex-start;
     flex-wrap: wrap;
+  }
+  nav {
+    text-align: left;
+    margin-left: -1rem;
+    font-size: 1rem;
+
+    padding: 1rem 0;
+    margin-top: 1rem;
   }
 }
 </style>

@@ -1,9 +1,9 @@
 <!--
  * @Author: 蓝山
  * @Date: 2022-11-14 14:09:50
- * @FilePath: \blue-mountain\src\components\TheWelcome.vue
+ * @FilePath: \trunk\src\components\TheWelcome.vue
  * @LastEditors: 蓝山
- * @LastEditTime: 2022-11-15 17:25:12
+ * @LastEditTime: 2022-11-22 18:09:31
 -->
 <script>
 import WelcomeItem from "./WelcomeItem.vue";
@@ -12,9 +12,10 @@ import ToolingIcon from "./icons/IconTooling.vue";
 import EcosystemIcon from "./icons/IconEcosystem.vue";
 import CommunityIcon from "./icons/IconCommunity.vue";
 import SupportIcon from "./icons/IconSupport.vue";
-import { defineComponent } from "vue";
+import colorPicker from "./dialog/colorPicker.vue";
 import { CashOutline as CashIcon } from "@vicons/ionicons5";
-export default defineComponent({
+import {showLoading,hideLoading} from '../lib/loading.js'
+export default {
   components: {
     CashIcon,
     WelcomeItem,
@@ -23,57 +24,83 @@ export default defineComponent({
     EcosystemIcon,
     CommunityIcon,
     SupportIcon,
+    colorPicker
   },
+  mixins: [showLoading,hideLoading],
   data() {
     return {
-      uploadFile: null,
-      pixel: null,
-      ctx: null,
-      text: '',
-      color: ''
+      // 小图参数
+      uploadFileSmall: null,
+      pixelSmall: null,
+      ctxSmall: null,
+      textSmall: "",
+      colorSmall: "",
     };
   },
   methods: {
-    // 上传图片
-    handleChange(file) {
+    // 上传图片小
+    handleChangeSmall(file) {
+      showLoading('加载中')
       const that = this;
       /* file转url --start */
       var reader = new FileReader();
       reader.readAsDataURL(file.file.file);
       reader.onload = function (ev) {
         // url赋值
-        that.uploadFile = ev.currentTarget.result;
+        that.uploadFileSmall = ev.currentTarget.result;
         /* file转url --start */
-        setTimeout(() => {
-          that.canvasInit()
-        }, 3000)
+        that.$nextTick(() => {
+            that.canvasInit();
+        })
+      };
+    },
+    // 上传图片大
+    handleChangeBig(file) {
+      const that = this;
+      /* file转url --start */
+      var reader = new FileReader();
+      reader.readAsDataURL(file.file.file);
+      reader.onload = function (ev) {
+        // url赋值
+        that.uploadFileBig = ev.currentTarget.result;
+        that.$refs.colorDialog.openDialog(that.uploadFileBig)
       };
     },
     // 初始化canvas画布
     canvasInit() {
       const that = this;
       var img = new Image();
-      img.src = this.uploadFile;
+      img.src = this.uploadFileSmall
       var localImg = document.getElementById("localImg");
       var imgCanvas = document.getElementById("imgCanvas");
       imgCanvas.width = localImg.width;
       imgCanvas.height = localImg.height;
-      this.ctx = imgCanvas.getContext("2d");
+      this.ctxSmall = imgCanvas.getContext("2d");
       img.onload = () => {
-        that.ctx.drawImage(img, 0, 0, localImg.width, localImg.height);
-        that.pixel = that.ctx.getImageData(1, 1, 1, 1);
+        that.ctxSmall.drawImage(img, 0, 0, localImg.width, localImg.height);
+        that.pixelSmall = that.ctxSmall.getImageData(1, 1, 1, 1);
         let rgba = that.getRgba(188, 8);
-        this.color = rgba;
-        this.text = rgba;
-        imgCanvas.addEventListener("click", that.pick);
-      };
+        this.colorSmall = rgba
+        this.textSmall = rgba
+        hideLoading()
+      }
+      imgCanvas.addEventListener("click", that.pick);
     },
     // 获取位置像素信息
     getRgba(x, y) {
-      var pixel = this.ctx.getImageData(x, y, 1, 1);
+      var pixel = this.ctxSmall.getImageData(x, y, 1, 1);
       var data = pixel.data;
       // 获取rgba值
-      var rgba = "rgba(" + data[0] + "," + data[1] + "," + data[2] + "," + data[3] / 255 + ")";
+      var rgba =
+        "rgba(" +
+        data[0] +
+        "," +
+        data[1] +
+        "," +
+        data[2] +
+        "," +
+        data[3] / 255 +
+        ")";
       return rgba;
     },
     // 获取鼠标点击位置
@@ -85,10 +112,10 @@ export default defineComponent({
       // 获取图片像素信息
       let rgba = this.getRgba(x, y);
       // 设置小正方形的背景颜色
-      this.color = rgba;
+      this.colorSmall = rgba;
 
       // 把拼接的字符串设置为元素的文本内容
-      this.text = rgba;
+      this.textSmall = rgba;
     },
     // rgb转HEX
     rgb2hex(rgb) {
@@ -101,8 +128,12 @@ export default defineComponent({
       var _hex = "#" + hex(arr[1]) + hex(arr[2]) + hex(arr[3]);
       return _hex.toUpperCase();
     },
+    setup(editor) {
+      console.log(editor);
+    },
   },
-});
+  mounted() {}
+};
 </script>
 
 <template>
@@ -114,28 +145,39 @@ export default defineComponent({
     <template #title>
       上传图片后通过Canvas画布来实现，将图片上传后转为Canvas画布，通过鼠标定位信息获取坐标颜色。
     </template>
-    <n-layout has-sider>
-      <n-layout-sider content-style="padding: 24px;">
-        <n-upload @change="handleChange">
+    <content class="color-picker">
+      <div class="left-upload">
+        <n-upload @change="handleChangeSmall">
           <n-button ghost color="#8a2be2">
             <template #icon>
               <n-icon>
                 <cash-icon />
               </n-icon>
             </template>
-            上传
+            上传(小)
           </n-button>
         </n-upload>
-      </n-layout-sider>
-      <n-layout-content content-style="padding: 24px;">
-        <img id="localImg" v-if="uploadFile" :src="uploadFile" alt="" />
+        <n-upload @change="handleChangeBig">
+          <n-button color="#8a2be2">
+            <template #icon>
+              <n-icon>
+                <cash-icon />
+              </n-icon>
+            </template>
+            上传(大)
+          </n-button>
+        </n-upload>
+      </div>
+      <div class="right-show">
+        <img id="localImg" v-if="uploadFileSmall" :src="uploadFileSmall" alt="" />
         <canvas id="imgCanvas"></canvas>
         <div class="infoBar">
-          <span class="color" :style="'background:' + color"></span>
-          <span class="text">{{ text }}</span>
+          <span class="color" :style="'background:' + colorSmall"></span>
+          <span class="text">{{ textSmall }}</span>
         </div>
-      </n-layout-content>
-    </n-layout>
+      </div>
+    </content>
+    <color-picker ref="colorDialog"></color-picker>
   </WelcomeItem>
 
   <WelcomeItem>
@@ -146,7 +188,6 @@ export default defineComponent({
     <template #title>
       通过document.addEventListener 'paste' 实现监听复制剪切事件。
     </template>
-
   </WelcomeItem>
 
   <WelcomeItem>
@@ -155,8 +196,9 @@ export default defineComponent({
     </template>
     <template #heading>评论区</template>
     <template #title>自定义组件参考微信的回复评论dom结构</template>
-
-    
+    <div class="action-bar">
+      <n-button class="release" type="primary">发布</n-button>
+    </div>
   </WelcomeItem>
 
   <WelcomeItem>
@@ -176,26 +218,8 @@ export default defineComponent({
   </WelcomeItem>
 </template>
 <style lang="stylus" scoped>
-
-#localImg {
-  opacity: 0;
-  position: absolute;
-  width: 100%;
-  max-width: 380px;
-}
-
-#imgCanvas{
-  margin-bottom: 24px;
-}
-
-/deep/.n-upload-file-list {
+:deep(.n-upload-file-list) {
   display: none;
-}
-
-.n-upload {
-  display: flex;
-  align-items: center;
-  justify-content: center;
 }
 
 .n-layout {
@@ -213,14 +237,15 @@ export default defineComponent({
   border-right: 1px dashed rgb(239, 239, 245);
 }
 
-/deep/.n-layout-sider-scroll-container {
+:deep(.n-layout-sider-scroll-container) {
   display: flex;
 }
 
-.infoBar{
+.infoBar {
   display: flex;
   justify-content: space-evenly;
-  background: rgba(0,0,0,0)
+  background: rgba(0, 0, 0, 0);
+
   .color {
     display: block;
     height: 40px;
@@ -236,4 +261,56 @@ export default defineComponent({
   }
 }
 
+.action-bar {
+  text-align: right;
+  margin-top: 12px;
+  width: 100%;
+
+  .release {
+    margin-left: 12px;
+  }
+}
+
+.color-picker {
+  display: flex;
+  justify-content: left;
+  border-radius: 4px;
+  box-shadow: var(--box-shadow);
+
+  .n-upload {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 16px;
+    &:last-child{
+      margin-bottom: 0px;
+    }
+  }
+
+  .left-upload {
+    padding: 24px;
+    width: 30%;
+    display: flex;
+    flex-wrap: wrap;
+    align-content: center;
+    border-right: 1px dashed var(--vt-c-divider-light-2);
+  }
+
+  .right-show {
+    padding: 24px;
+    width: 70%;
+  }
+}
+
+#localImg {
+  opacity: 0;
+  width: 100%;
+  margin-bottom: 24px;
+}
+
+#imgCanvas {
+  position: absolute;
+  top: 24px;
+  left: 24px;
+}
 </style>

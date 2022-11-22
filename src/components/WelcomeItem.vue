@@ -1,13 +1,4 @@
 <script>
-import { defineComponent } from 'vue'
-import { NButton, NCollapse, NCollapseItem } from "naive-ui";
-export default defineComponent({
-  components: {
-    NButton,
-    NCollapse,
-    NCollapseItem
-  },
-});
 </script>
 <template>
   <div class="item">
@@ -18,7 +9,6 @@ export default defineComponent({
       <h3>
         <slot name="heading"></slot>
       </h3>
-      <!-- <slot></slot> -->
       <n-collapse display-directive="show">
         <n-collapse-item name="1">
           <template #header>

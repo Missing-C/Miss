@@ -9,6 +9,7 @@
   "dependencies": {
     "@packy-tang/vue-tinymce": "^2.0.0-beta.1",
     "element-plus": "^2.2.22",
+    "epic-spinners": "^2.0.0",
     "install": "^0.13.0",
     "npm": "^9.1.1",
     "pinia": "^2.0.21",

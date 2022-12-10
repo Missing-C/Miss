@@ -1,24 +1,21 @@
 <!--
  * @Author: 蓝山
  * @Date: 2022-11-22 11:08:41
- * @FilePath: \trunk\src\App.vue
+ * @FilePath: \Miss\src\App.vue
  * @LastEditors: 蓝山
- * @LastEditTime: 2022-11-22 17:11:41
+ * @LastEditTime: 2022-12-01 11:18:55
 -->
 <script setup>
-import { RouterLink, RouterView } from 'vue-router'
-import HelloWorld from './components/HelloWorld.vue'
+import { RouterLink, RouterView } from 'vue-router';
+import { AtomSpinner, BreedingRhombusSpinner } from 'epic-spinners';
+import HelloWorld from './components/HelloWorld.vue';
 </script>
 
 <template>
+  <atom-spinner :animation-duration="1000" :size="60" :color="'hsla(160, 100%, 37%, 1)'" />
+  <breeding-rhombus-spinner :animation-duration="1000" :size="60" color="hsla(160, 100%, 37%, 1)" />
   <header>
-  <img
-      alt="Vue logo"
-      class="logo"
-      src="./assets/user.jpg"
-      width="125"
-      height="125"
-    />
+    <img alt="Vue logo" class="logo" src="./assets/user.jpg" width="125" height="125" />
     <div class="wrapper">
       <HelloWorld msg="Blue Mountain" />
 

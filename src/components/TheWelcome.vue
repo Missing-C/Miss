@@ -1,9 +1,9 @@
 <!--
  * @Author: 蓝山
  * @Date: 2022-11-14 14:09:50
- * @FilePath: \trunk\src\components\TheWelcome.vue
+ * @FilePath: \Miss\src\components\TheWelcome.vue
  * @LastEditors: 蓝山
- * @LastEditTime: 2022-11-22 18:09:31
+ * @LastEditTime: 2022-12-27 16:03:37
 -->
 <script>
 import WelcomeItem from "./WelcomeItem.vue";
@@ -14,7 +14,6 @@ import CommunityIcon from "./icons/IconCommunity.vue";
 import SupportIcon from "./icons/IconSupport.vue";
 import colorPicker from "./dialog/colorPicker.vue";
 import { CashOutline as CashIcon } from "@vicons/ionicons5";
-import {showLoading,hideLoading} from '../lib/loading.js'
 export default {
   components: {
     CashIcon,
@@ -26,7 +25,6 @@ export default {
     SupportIcon,
     colorPicker
   },
-  mixins: [showLoading,hideLoading],
   data() {
     return {
       // 小图参数
@@ -35,12 +33,22 @@ export default {
       ctxSmall: null,
       textSmall: "",
       colorSmall: "",
+      showLoading: false
     };
+  },
+  watch: {
+    showLoading(newShowLoading,oldLoading){
+      if(newShowLoading == true){
+        this.loadingMiss.show('123')
+      }
+      if(oldLoading == true){
+        this.loadingMiss.hide()
+      }
+    }
   },
   methods: {
     // 上传图片小
     handleChangeSmall(file) {
-      showLoading('加载中')
       const that = this;
       /* file转url --start */
       var reader = new FileReader();
@@ -131,6 +139,12 @@ export default {
     setup(editor) {
       console.log(editor);
     },
+    changLoadingSwitch() {
+      const that = this
+      setTimeout(function () {
+        that.showLoading = false
+      },3000)
+    },
   },
   mounted() {}
 };
@@ -143,7 +157,7 @@ export default {
     </template>
     <template #heading @click="showColorPanel">取色器</template>
     <template #title>
-      上传图片后通过Canvas画布来实现，将图片上传后转为Canvas画布，通过鼠标定位信息获取坐标颜色。
+      <span class="collapse-span">上传图片后通过Canvas画布来实现，将图片上传后转为Canvas画布，通过鼠标定位信息获取坐标颜色。</span>
     </template>
     <content class="color-picker">
       <div class="left-upload">
@@ -186,7 +200,7 @@ export default {
     </template>
     <template #heading>剪切板</template>
     <template #title>
-      通过document.addEventListener 'paste' 实现监听复制剪切事件。
+      <span class="collapse-span">记录你的粘贴板历史记录。</span>
     </template>
   </WelcomeItem>
 
@@ -194,8 +208,8 @@ export default {
     <template #icon>
       <CommunityIcon />
     </template>
-    <template #heading>评论区</template>
-    <template #title>自定义组件参考微信的回复评论dom结构</template>
+    <template #heading>正则大全</template>
+    <template #title><span class="collapse-span">常用，不常用正则大全</span></template>
     <div class="action-bar">
       <n-button class="release" type="primary">发布</n-button>
     </div>
@@ -205,16 +219,27 @@ export default {
     <template #icon>
       <EcosystemIcon />
     </template>
-    <template #heading>轮播图</template>
-    <template #title>通过添加创建的方式生成轮播图</template>
+    <template #heading>JSON</template>
+    <template #title><span class="collapse-span">JSON的格式处理转换</span></template>
   </WelcomeItem>
 
   <WelcomeItem>
     <template #icon>
       <DocumentationIcon />
     </template>
-    <template #heading>全文检索功能</template>
-    <template #title>实现对input,textarea以及文本的全文检索功能</template>
+    <template #heading>快捷地址</template>
+    <template #title><span class="collapse-span">实现对input,textarea以及文本的全文检索功能</span></template>
+  </WelcomeItem>
+
+  <WelcomeItem>
+    <template #icon>
+      <DocumentationIcon />
+    </template>
+    <template #heading>组件封装</template>
+    <template #title><span class="collapse-span">全局封装组件，例如Loading窗</span></template>
+    <content>
+      <el-switch v-model="showLoading" @change="changLoadingSwitch()"/>
+    </content>
   </WelcomeItem>
 </template>
 <style lang="stylus" scoped>
@@ -312,5 +337,8 @@ export default {
   position: absolute;
   top: 24px;
   left: 24px;
+}
+.collapse-span{
+  color: var(--color-text) !important;
 }
 </style>

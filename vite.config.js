@@ -1,9 +1,9 @@
 /*
  * @Author: 蓝山
  * @Date: 2022-11-22 11:08:41
- * @FilePath: \blue\vite.config.js
+ * @FilePath: \Miss\vite.config.js
  * @LastEditors: 蓝山
- * @LastEditTime: 2022-11-22 11:42:43
+ * @LastEditTime: 2022-12-27 15:09:46
  */
 import { fileURLToPath, URL } from 'node:url'
 
@@ -14,6 +14,11 @@ import vue from '@vitejs/plugin-vue'
 export default defineConfig({
   plugins: [vue({
     refresh: true,
+    template: {
+      compilerOptions: {
+        isCustomElement: (tag) => tag.includes('m-')
+      }
+    }
   })],
   server: {
     port: "1314",

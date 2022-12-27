@@ -3,12 +3,10 @@
  * @Date: 2022-11-22 17:15:02
  * @FilePath: \Miss\src\components\dialog\colorPicker.vue
  * @LastEditors: 蓝山
- * @LastEditTime: 2022-11-23 15:22:36
+ * @LastEditTime: 2022-12-27 11:30:38
 -->
 <script>
-import { showLoading, hideLoading } from '../../lib/loading.js';
 export default {
-  mixins: [showLoading, hideLoading],
   data() {
     return {
       uploadFileBig: null,
@@ -51,7 +49,7 @@ export default {
         let rgb = that.getRgb(188, 8);
         this.colorBigRgb = rgb;
         this.textBigRgb = rgb;
-        hideLoading();
+        that.loadingMiss.hide()
       };
       imgCanvas.addEventListener('click', that.pick);
     },

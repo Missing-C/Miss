@@ -3,25 +3,44 @@
  * @Date: 2022-11-22 11:08:41
  * @FilePath: \Miss\src\App.vue
  * @LastEditors: 蓝山
- * @LastEditTime: 2022-12-01 11:18:55
+ * @LastEditTime: 2022-12-27 16:03:31
 -->
-<script setup>
+<script>
 import { RouterLink, RouterView } from 'vue-router';
-import { AtomSpinner, BreedingRhombusSpinner } from 'epic-spinners';
 import HelloWorld from './components/HelloWorld.vue';
+export default {
+  components:{HelloWorld},
+  data(){
+    return {
+      darkAndLight: false
+    }
+  },
+  watch: {
+    darkAndLight(newDarkAndLight, oldDarkAndLight){
+      if(newDarkAndLight == true){
+        document.documentElement.setAttribute('data-theme', 'dark')
+      }
+      if(oldDarkAndLight == true){
+        document.documentElement.setAttribute('data-theme', 'light')
+      }
+    }
+  },
+  created(){
+  },
+  mounted(){
+  }
+}
 </script>
 
 <template>
-  <atom-spinner :animation-duration="1000" :size="60" :color="'hsla(160, 100%, 37%, 1)'" />
-  <breeding-rhombus-spinner :animation-duration="1000" :size="60" color="hsla(160, 100%, 37%, 1)" />
   <header>
     <img alt="Vue logo" class="logo" src="./assets/user.jpg" width="125" height="125" />
     <div class="wrapper">
       <HelloWorld msg="Blue Mountain" />
-
       <nav>
         <RouterLink to="/home">Home</RouterLink>
         <RouterLink to="/about">About</RouterLink>
+        <el-switch v-model="darkAndLight"/>
       </nav>
     </div>
   </header>
@@ -74,7 +93,6 @@ nav a {
 nav a:first-of-type {
   border: 0;
 }
-
 @media (min-width: 1024px) {
   header {
     display: flex;

@@ -1,9 +1,9 @@
 <!--
  * @Author: 蓝山
  * @Date: 2022-11-22 11:08:41
- * @FilePath: \blue\src\views\HomeView.vue
+ * @FilePath: \Miss\src\views\HomeView.vue
  * @LastEditors: 蓝山
- * @LastEditTime: 2022-11-22 14:00:15
+ * @LastEditTime: 2022-12-27 15:11:11
 -->
 <script setup>
 import TheWelcome from '../components/TheWelcome.vue'
@@ -11,6 +11,6 @@ import TheWelcome from '../components/TheWelcome.vue'
 
 <template>
   <main>
-    <TheWelcome />
+    <the-welcome />
   </main>
 </template>

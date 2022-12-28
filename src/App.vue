@@ -3,7 +3,7 @@
  * @Date: 2022-11-22 11:08:41
  * @FilePath: \Miss\src\App.vue
  * @LastEditors: 蓝山
- * @LastEditTime: 2022-12-27 16:03:31
+ * @LastEditTime: 2022-12-28 09:48:44
 -->
 <script>
 import { RouterLink, RouterView } from 'vue-router';
@@ -41,6 +41,17 @@ export default {
         <RouterLink to="/home">Home</RouterLink>
         <RouterLink to="/about">About</RouterLink>
         <el-switch v-model="darkAndLight"/>
+        <el-popover
+          placement="bottom"
+          title="Title"
+          :width="200"
+          trigger="click"
+        >
+          <template #reference>
+            <el-button class="m-2">主题色</el-button>
+          </template>
+          123123
+        </el-popover>
       </nav>
     </div>
   </header>

@@ -1,5 +1,11 @@
+/*
+ * @Author: 蓝山
+ * @Date: 2022-11-23 10:12:20
+ * @FilePath: \Miss\src\router\index.js
+ * @LastEditors: 蓝山
+ * @LastEditTime: 2022-12-28 10:21:41
+ */
 import { createRouter, createWebHistory } from 'vue-router'
-import HomeView from '../views/HomeView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -7,7 +13,7 @@ const router = createRouter({
     {
       path: '/home',
       name: 'home',
-      component: HomeView
+      component: () => import('../views/HomeView.vue'),
     },
     {
       path: '/about',

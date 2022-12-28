@@ -3,10 +3,10 @@
  * @Date: 2022-12-13 14:49:53
  * @FilePath: \Miss\src\lib\commonLoading.js
  * @LastEditors: 蓝山
- * @LastEditTime: 2022-12-27 15:05:29
+ * @LastEditTime: 2022-12-28 10:33:52
  */
 import { createApp, reactive } from 'vue'
-import Loading from '@/components/Loading/loading.vue'
+import Loading from '@/components/Loading/blueLoading.vue'
 const msg = reactive({
     show: false,
     title: '拼命加载中...'

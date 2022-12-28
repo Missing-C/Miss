@@ -3,7 +3,7 @@
  * @Date: 2022-11-14 14:09:50
  * @FilePath: \Miss\src\components\TheWelcome.vue
  * @LastEditors: 蓝山
- * @LastEditTime: 2022-12-27 16:03:37
+ * @LastEditTime: 2022-12-28 09:59:24
 -->
 <script>
 import WelcomeItem from "./WelcomeItem.vue";
@@ -151,9 +151,9 @@ export default {
 </script>
 
 <template>
-  <WelcomeItem>
+  <welcome-item>
     <template #icon>
-      <SupportIcon />
+      <support-icon />
     </template>
     <template #heading @click="showColorPanel">取色器</template>
     <template #title>
@@ -192,55 +192,55 @@ export default {
       </div>
     </content>
     <color-picker ref="colorDialog"></color-picker>
-  </WelcomeItem>
+  </welcome-item>
 
-  <WelcomeItem>
+  <welcome-item>
     <template #icon>
-      <ToolingIcon />
+      <tooling-icon />
     </template>
     <template #heading>剪切板</template>
     <template #title>
       <span class="collapse-span">记录你的粘贴板历史记录。</span>
     </template>
-  </WelcomeItem>
+  </welcome-item>
 
-  <WelcomeItem>
+  <welcome-item>
     <template #icon>
-      <CommunityIcon />
+      <community-icon />
     </template>
     <template #heading>正则大全</template>
     <template #title><span class="collapse-span">常用，不常用正则大全</span></template>
     <div class="action-bar">
       <n-button class="release" type="primary">发布</n-button>
     </div>
-  </WelcomeItem>
+  </welcome-item>
 
-  <WelcomeItem>
+  <welcome-item>
     <template #icon>
       <EcosystemIcon />
     </template>
     <template #heading>JSON</template>
     <template #title><span class="collapse-span">JSON的格式处理转换</span></template>
-  </WelcomeItem>
+  </welcome-item>
 
-  <WelcomeItem>
+  <welcome-item>
     <template #icon>
-      <DocumentationIcon />
+      <documentation-icon />
     </template>
     <template #heading>快捷地址</template>
     <template #title><span class="collapse-span">实现对input,textarea以及文本的全文检索功能</span></template>
-  </WelcomeItem>
+  </welcome-item>
 
-  <WelcomeItem>
+  <welcome-item>
     <template #icon>
-      <DocumentationIcon />
+      <documentation-icon />
     </template>
     <template #heading>组件封装</template>
     <template #title><span class="collapse-span">全局封装组件，例如Loading窗</span></template>
     <content>
       <el-switch v-model="showLoading" @change="changLoadingSwitch()"/>
     </content>
-  </WelcomeItem>
+  </welcome-item>
 </template>
 <style lang="stylus" scoped>
 :deep(.n-upload-file-list) {

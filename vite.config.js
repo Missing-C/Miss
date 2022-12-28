@@ -3,7 +3,7 @@
  * @Date: 2022-11-22 11:08:41
  * @FilePath: \Miss\vite.config.js
  * @LastEditors: 蓝山
- * @LastEditTime: 2022-12-27 15:09:46
+ * @LastEditTime: 2022-12-28 10:34:13
  */
 import { fileURLToPath, URL } from 'node:url'
 
@@ -16,7 +16,7 @@ export default defineConfig({
     refresh: true,
     template: {
       compilerOptions: {
-        isCustomElement: (tag) => tag.includes('m-')
+        isCustomElement: (tag) => tag.includes('Blue')
       }
     }
   })],

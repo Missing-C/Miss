@@ -3,7 +3,7 @@
  * @Date: 2022-11-22 11:08:41
  * @FilePath: \Miss\src\App.vue
  * @LastEditors: 蓝山
- * @LastEditTime: 2022-12-30 10:05:22
+ * @LastEditTime: 2022-12-28 09:48:44
 -->
 <script>
 import { RouterLink, RouterView } from 'vue-router';
@@ -38,8 +38,8 @@ export default {
     <div class="wrapper">
       <HelloWorld msg="Blue Mountain" />
       <nav>
-        <RouterLink to="/home">Tools</RouterLink>
-        <RouterLink to="/about">Manual</RouterLink>
+        <RouterLink to="/home">Home</RouterLink>
+        <RouterLink to="/about">About</RouterLink>
         <el-switch v-model="darkAndLight"/>
         <el-popover
           placement="bottom"
